@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Video, Compass, Heart, Menu, MessageSquare } from 'lucide-react';
+import { Search, Video, Compass, Heart, Menu, MessageSquare, User, MessageCircle, Users } from 'lucide-react';
 
 interface MobileBottomNavProps {
   activeView: string;
@@ -10,6 +10,8 @@ interface MobileBottomNavProps {
   shortlistCount: number;
   inboxCount: number;
   openMobileMenu: () => void;
+  openMyProfile?: () => void;
+  openOneToOne?: () => void;
 }
 
 export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
@@ -21,6 +23,8 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   shortlistCount,
   inboxCount,
   openMobileMenu,
+  openMyProfile,
+  openOneToOne,
 }) => {
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-lg border-t border-neutral-200 shadow-lg safe-bottom">
@@ -39,19 +43,23 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           <span className="text-[10px] tracking-tight mt-0.5">Matches</span>
         </button>
 
-        {/* Tab 2: Couple Live */}
+        {/* Tab 2: 1-to-1 Real Connect */}
         <button
-          onClick={openLive}
-          className={`relative flex flex-col items-center justify-center min-h-[44px] py-1 transition-colors ${
-            activeView === 'live' ? 'text-rose-600 font-bold' : 'text-neutral-500 hover:text-neutral-900'
-          }`}
+          onClick={() => {
+            if (openOneToOne) {
+              openOneToOne();
+            } else {
+              openLive();
+            }
+          }}
+          className="relative flex flex-col items-center justify-center min-h-[44px] py-1 text-rose-600 hover:text-rose-700 transition-colors"
         >
           <div className="relative">
-            <Video className="w-5 h-5 stroke-[2.2]" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-rose-600 animate-ping" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-rose-600" />
+            <Users className="w-5 h-5 stroke-[2.2]" />
+            <span className="absolute -top-1 -right-1.5 w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+            <span className="absolute -top-1 -right-1.5 w-2 h-2 rounded-full bg-emerald-500" />
           </div>
-          <span className="text-[10px] tracking-tight mt-0.5">Live Meet</span>
+          <span className="text-[10px] tracking-tight mt-0.5 font-bold text-rose-600">1-to-1 Real</span>
         </button>
 
         {/* Tab 3: Kundli */}
@@ -63,31 +71,35 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           <span className="text-[10px] tracking-tight mt-0.5">Kundli</span>
         </button>
 
-        {/* Tab 4: Messages / Shortlist */}
+        {/* Tab 4: WhatsApp Chat */}
         <button
           onClick={openInbox}
-          className="relative flex flex-col items-center justify-center min-h-[44px] py-1 text-neutral-500 hover:text-neutral-900 transition-colors"
+          className="relative flex flex-col items-center justify-center min-h-[44px] py-1 text-emerald-700 hover:text-emerald-800 transition-colors"
         >
           <div className="relative">
-            <MessageSquare className="w-5 h-5 stroke-[2.2]" />
+            <MessageCircle className="w-5 h-5 stroke-[2.2] text-[#25D366]" />
             {inboxCount > 0 && (
-              <span className="absolute -top-1.5 -right-2 min-w-4 h-4 px-1 rounded-full bg-emerald-600 text-white text-[9px] font-bold flex items-center justify-center">
+              <span className="absolute -top-1.5 -right-2 min-w-4 h-4 px-1 rounded-full bg-[#25D366] text-white text-[9px] font-bold flex items-center justify-center">
                 {inboxCount}
               </span>
             )}
           </div>
-          <span className="text-[10px] tracking-tight mt-0.5">Inbox</span>
+          <span className="text-[10px] tracking-tight mt-0.5 font-semibold text-emerald-800">WhatsApp</span>
         </button>
 
-        {/* Tab 5: More / Menu */}
+        {/* Tab 5: My Bio / Profile */}
         <button
-          onClick={openMobileMenu}
-          className={`flex flex-col items-center justify-center min-h-[44px] py-1 transition-colors ${
-            activeView === 'about' ? 'text-rose-600 font-bold' : 'text-neutral-500 hover:text-neutral-900'
-          }`}
+          onClick={() => {
+            if (openMyProfile) {
+              openMyProfile();
+            } else {
+              openMobileMenu();
+            }
+          }}
+          className="flex flex-col items-center justify-center min-h-[44px] py-1 text-neutral-500 hover:text-rose-600 transition-colors"
         >
-          <Menu className="w-5 h-5 stroke-[2.2]" />
-          <span className="text-[10px] tracking-tight mt-0.5">Menu</span>
+          <User className="w-5 h-5 stroke-[2.2]" />
+          <span className="text-[10px] tracking-tight mt-0.5">My Bio</span>
         </button>
 
       </div>

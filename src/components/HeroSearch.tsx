@@ -16,12 +16,14 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({
   onSearch,
   openRegistration,
 }) => {
-  const [lookingFor, setLookingFor] = useState<Gender>(filters.lookingFor);
+  const [lookingFor, setLookingFor] = useState<Gender | 'all'>(filters.lookingFor);
   const [minAge, setMinAge] = useState<number>(filters.minAge);
   const [maxAge, setMaxAge] = useState<number>(filters.maxAge);
   const [religion, setReligion] = useState<string>(filters.religion);
   const [motherTongue, setMotherTongue] = useState<string>(filters.motherTongue);
   const [city, setCity] = useState<string>(filters.city);
+
+  const [heroSrc, setHeroSrc] = useState<string>(HERO_BANNER_IMG);
 
   const handleQuickSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,16 +41,19 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({
   };
 
   return (
-    <section className="relative overflow-hidden bg-neutral-900 border-b border-neutral-800">
-      {/* Background Hero Image with measured contrast scrim */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative overflow-hidden bg-rose-950 border-b border-rose-900/50">
+      {/* Background Hero Image with vivid wedding warmth and high mobile visibility */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src={HERO_BANNER_IMG}
-          alt="Happy newlywed couple celebrating their wedding"
+          src={heroSrc}
+          onError={() => setHeroSrc('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1920&q=80')}
+          alt="Happy newlywed Indian couple celebrating their wedding"
           referrerPolicy="no-referrer"
-          className="w-full h-full object-cover object-center opacity-40 brightness-90"
+          className="w-full h-full object-cover object-[center_25%] sm:object-center opacity-85 sm:opacity-80 scale-100 sm:scale-105 transition-all duration-700"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/70 to-neutral-950/40" />
+        {/* Warm cinematic scrim allowing the wedding couple photo to shine through clearly on mobile */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-neutral-950/95" />
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/75 via-transparent to-neutral-950/40" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pt-10 pb-14 sm:pt-16 sm:pb-20 lg:pt-24 lg:pb-28">
@@ -60,7 +65,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({
             Connecting Hearts, Heritage & Families.
           </h1>
           <p className="mt-2.5 sm:mt-4 text-xs sm:text-base text-neutral-300 max-w-2xl leading-relaxed">
-            Welcome to <span className="font-semibold text-white">couple.com</span>. Discover hand-verified biodatas, deep 36-Guna Kundli compatibility, and meaningful conversations built for lasting matrimony.
+            Welcome to <span className="font-semibold text-white">husbandwife.com</span>. Discover hand-verified biodatas, deep 36-Guna Kundli compatibility, and meaningful conversations built for lasting matrimony.
           </p>
         </div>
 

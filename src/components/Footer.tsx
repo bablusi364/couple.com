@@ -1,16 +1,24 @@
 import React from 'react';
-import { ShieldCheck, Heart, Mail, Phone } from 'lucide-react';
+import { ShieldCheck, Heart, Mail, Phone, Smartphone, Lock } from 'lucide-react';
 
 interface FooterProps {
   onSelectLanguage: (lang: string) => void;
   onSelectReligion: (rel: string) => void;
   onOpenUpgrade: () => void;
+  onOpenAdmin?: () => void;
+  onOpenAdminLogin?: () => void;
+  isAdminAuthenticated?: boolean;
+  openApkModal?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   onSelectLanguage,
   onSelectReligion,
   onOpenUpgrade,
+  onOpenAdmin,
+  onOpenAdminLogin,
+  isAdminAuthenticated,
+  openApkModal,
 }) => {
   return (
     <footer className="bg-neutral-950 text-neutral-400 text-xs border-t border-neutral-800">
@@ -22,7 +30,7 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Brand Info */}
           <div className="col-span-2 space-y-3">
             <div className="flex items-center gap-1.5 text-2xl font-bold tracking-tight text-white font-serif">
-              <span>couple</span>
+              <span>husbandwife</span>
               <span className="text-rose-500">.com</span>
             </div>
             <p className="text-xs text-neutral-400 max-w-sm leading-relaxed">
@@ -74,7 +82,7 @@ export const Footer: React.FC<FooterProps> = ({
             <ul className="space-y-1.5 text-xs text-neutral-400">
               <li>
                 <button onClick={onOpenUpgrade} className="hover:text-amber-400 transition-colors text-left">
-                  VIP Assisted couple.com
+                  VIP Assisted husbandwife.com
                 </button>
               </li>
               <li>
@@ -93,6 +101,29 @@ export const Footer: React.FC<FooterProps> = ({
               <li><span>Aadhaar ID Verification</span></li>
               <li><span>Success Stories</span></li>
               <li><span>Privacy Safeguards</span></li>
+              {openApkModal && (
+                <li className="pt-1">
+                  <button
+                    onClick={openApkModal}
+                    className="hover:text-emerald-400 text-emerald-400 font-semibold transition-colors text-left flex items-center gap-1.5 text-[11px]"
+                  >
+                    <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Download Android App / APK</span>
+                  </button>
+                </li>
+              )}
+              {/* Admin Portal link - ONLY visible when authenticated as admin */}
+              {isAdminAuthenticated && onOpenAdmin && (
+                <li className="pt-1 border-t border-neutral-800">
+                  <button
+                    onClick={onOpenAdmin}
+                    className="hover:text-amber-400 text-amber-400 font-semibold transition-colors text-left flex items-center gap-1 text-[11px]"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Admin Control Portal (Active 👑)</span>
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -100,7 +131,7 @@ export const Footer: React.FC<FooterProps> = ({
 
         {/* Bottom copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-500">
-          <p>© {new Date().getFullYear()} couple.com Matrimonial Services Ltd. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} husbandwife.com Matrimonial Services Ltd. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <span className="hover:text-neutral-400 transition-colors cursor-pointer">Privacy Policy</span>
             <span>·</span>
@@ -109,6 +140,19 @@ export const Footer: React.FC<FooterProps> = ({
             <span className="hover:text-neutral-400 transition-colors cursor-pointer">Safety Tips</span>
             <span>·</span>
             <span className="hover:text-neutral-400 transition-colors cursor-pointer">Fraud Alert</span>
+            {onOpenAdminLogin && (
+              <>
+                <span>·</span>
+                <button
+                  onClick={onOpenAdminLogin}
+                  className="hover:text-neutral-400 text-neutral-600 transition-colors cursor-pointer flex items-center gap-1 text-[11px]"
+                  title="Admin Security Access"
+                >
+                  <Lock className="w-3 h-3 text-neutral-600 hover:text-neutral-400" />
+                  <span>Admin</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
 

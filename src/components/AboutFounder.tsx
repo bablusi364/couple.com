@@ -1,7 +1,7 @@
 import React from 'react';
 import { Heart, ShieldCheck, Sparkles, Compass, CheckCircle2, Award, Quote } from 'lucide-react';
 
-export const FOUNDER_IMAGE = '/assets/aistudio/79cf9b20-f009-4044-9d88-1a8c621176b2_074e6473.jpg';
+export const FOUNDER_IMAGE = '/assets/images/founder_bablu_rajput_1792828142206.jpg';
 
 interface AboutFounderProps {
   onExploreMatches?: () => void;
@@ -15,7 +15,7 @@ export const AboutFounder: React.FC<AboutFounderProps> = ({ onExploreMatches }) 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <p className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-rose-600 mb-2">
-            The Vision Behind couple.com
+            The Vision Behind husbandwife.com
           </p>
           <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-neutral-900 font-serif">
             A Letter from our Founder
@@ -37,8 +37,11 @@ export const AboutFounder: React.FC<AboutFounderProps> = ({ onExploreMatches }) 
                 <div className="relative aspect-[3/4] w-full max-w-[220px] sm:max-w-xs mx-auto rounded-2xl overflow-hidden border-2 border-neutral-800 shadow-2xl bg-neutral-900">
                   <img
                     src={FOUNDER_IMAGE}
-                    alt="Bablu-Rajput, Founder & CEO of couple.com"
+                    alt="Bablu-Rajput, Founder & CEO of husbandwife.com"
                     referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/assets/images/founder_bablu_rajput_1792828142206.jpg';
+                    }}
                     className="w-full h-full object-cover object-top"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent opacity-50" />
@@ -53,7 +56,7 @@ export const AboutFounder: React.FC<AboutFounderProps> = ({ onExploreMatches }) 
                     Bablu-Rajput
                   </h3>
                   <p className="text-xs text-neutral-400 font-medium">
-                    Founder & Chief Executive Officer, couple.com
+                    Founder & Chief Executive Officer, husbandwife.com
                   </p>
                 </div>
 
@@ -102,17 +105,17 @@ export const AboutFounder: React.FC<AboutFounderProps> = ({ onExploreMatches }) 
                 </p>
 
                 <p>
-                  It’s one of life’s most meaningful decisions, and at <strong className="text-neutral-900 font-semibold">couple.com</strong>, since 1997 we’ve understood how significant and life-changing this phase is. That’s why we’ve dedicated ourselves to making this journey easier, more meaningful, and without any limitations. We are committed to helping people find their soulmates no matter where in the world they are.
+                  It’s one of life’s most meaningful decisions, and at <strong className="text-neutral-900 font-semibold">husbandwife.com</strong>, since 1997 we’ve understood how significant and life-changing this phase is. That’s why we’ve dedicated ourselves to making this journey easier, more meaningful, and without any limitations. We are committed to helping people find their soulmates no matter where in the world they are.
                 </p>
 
                 <p>
-                  Over the years, millions have trusted <strong className="text-neutral-900 font-semibold">couple.com</strong>, not just because of the technology we’ve built but because of the heart behind it. Today, we are at the perfect intersection of cutting-edge AI and human understanding. While our technology ensures smarter matches, greater privacy, and seamless experiences, our people ensure empathy, guidance, and the human touch that makes all the difference when it comes to matters of the heart.
+                  Over the years, millions have trusted <strong className="text-neutral-900 font-semibold">husbandwife.com</strong>, not just because of the technology we’ve built but because of the heart behind it. Today, we are at the perfect intersection of cutting-edge AI and human understanding. While our technology ensures smarter matches, greater privacy, and seamless experiences, our people ensure empathy, guidance, and the human touch that makes all the difference when it comes to matters of the heart.
                 </p>
 
                 {/* The Three Core Mandates */}
                 <div className="pt-2 space-y-3">
                   <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider text-rose-700">
-                    At the core of Team couple.com are three clear mandates:
+                    At the core of Team husbandwife.com are three clear mandates:
                   </h4>
 
                   <div className="space-y-3 pt-1">
@@ -159,7 +162,7 @@ export const AboutFounder: React.FC<AboutFounderProps> = ({ onExploreMatches }) 
                 </p>
 
                 <p className="italic text-neutral-900 font-medium">
-                  &ldquo;As you take the first steps toward one of the most important decisions of your life, I hope couple.com helps you not just find a match, but find the one.&rdquo;
+                  &ldquo;As you take the first steps toward one of the most important decisions of your life, I hope husbandwife.com helps you not just find a match, but find the one.&rdquo;
                 </p>
               </div>
 
@@ -170,7 +173,7 @@ export const AboutFounder: React.FC<AboutFounderProps> = ({ onExploreMatches }) 
                   <p className="text-lg font-bold font-serif text-neutral-950 mt-0.5">
                     Bablu-Rajput
                   </p>
-                  <p className="text-[11px] text-rose-700 font-semibold">Founder, couple.com</p>
+                  <p className="text-[11px] text-rose-700 font-semibold">Founder, husbandwife.com</p>
                 </div>
 
                 {onExploreMatches && (
@@ -178,7 +181,7 @@ export const AboutFounder: React.FC<AboutFounderProps> = ({ onExploreMatches }) 
                     onClick={onExploreMatches}
                     className="w-full sm:w-auto min-h-[44px] px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-xl shadow-sm transition-colors whitespace-nowrap shrink-0 flex items-center justify-center"
                   >
-                    Start Your Search on couple.com
+                    Start Your Search on husbandwife.com
                   </button>
                 )}
               </div>

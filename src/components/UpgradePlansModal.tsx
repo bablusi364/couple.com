@@ -44,7 +44,7 @@ export const UpgradePlansModal: React.FC<UpgradePlansModalProps> = ({
             <Crown className="w-5 h-5 text-amber-600 shrink-0" />
             <div>
               <h3 className="text-sm sm:text-base font-bold text-neutral-900 font-serif">
-                couple.com VIP Membership Plans
+                husbandwife.com VIP Membership Plans
               </h3>
               <p className="text-[10px] sm:text-[11px] text-neutral-500 line-clamp-1">
                 Unlock direct phone numbers, unlimited chats, and relationship manager assistance
@@ -65,7 +65,7 @@ export const UpgradePlansModal: React.FC<UpgradePlansModalProps> = ({
               <Check className="w-8 h-8 stroke-[3]" />
             </div>
             <h4 className="text-2xl font-bold font-serif text-neutral-900">
-              Welcome to couple.com VIP!
+              Welcome to husbandwife.com VIP!
             </h4>
             <p className="text-sm text-neutral-600 max-w-md mx-auto">
               Your VIP plan is active. All contact numbers, WhatsApp directs, and unlimited chats are now unlocked for your account.

@@ -1,7 +1,7 @@
 import { Profile, SuccessStory, LiveSession, MembershipPlan } from '../types/matrimony';
 
-export const HERO_BANNER_IMG = '/src/assets/images/hero_couple_wedding_1792826628037.jpg';
-export const SUCCESS_STORY_IMG_1 = '/src/assets/images/success_priya_rahul_1792826628513.jpg';
+export const HERO_BANNER_IMG = '/assets/images/hero_couple_wedding_1792826628037.jpg';
+export const SUCCESS_STORY_IMG_1 = '/assets/images/success_priya_rahul_1792826628513.jpg';
 
 export const PROFILES: Profile[] = [
   {
@@ -26,7 +26,7 @@ export const PROFILES: Profile[] = [
     smoking: 'No',
     about: 'I am a warm, ambitious, and family-oriented person who enjoys balancing a high-growth tech career with quiet evenings of classical music, reading non-fiction, and baking. Looking for a partner who values mutual respect, intellectual conversations, and laughter.',
     photos: [
-      '/src/assets/images/profile_ananya_1792826629253.jpg',
+      '/assets/images/profile_ananya_1792826629253.jpg',
     ],
     isVerified: true,
     verifiedDetails: ['Govt ID (Aadhaar) Verified', 'Degree Verified (IIT Delhi)', 'Mobile & Email Verified'],
@@ -92,7 +92,7 @@ export const PROFILES: Profile[] = [
     smoking: 'No',
     about: 'Passionate about building scalable products and traveling to lesser-known mountain villages. I value kindness, deep family bonds, and someone who has her own dreams and passions. Let us build a fulfilling life journey together.',
     photos: [
-      '/src/assets/images/profile_rohit_1792826629953.jpg',
+      '/assets/images/profile_rohit_1792826629953.jpg',
     ],
     isVerified: true,
     verifiedDetails: ['Govt ID (Passport) Verified', 'Income Tax Verified', 'Education Verified (IIM-A)'],
@@ -158,7 +158,7 @@ export const PROFILES: Profile[] = [
     smoking: 'No',
     about: 'Born in Chennai, raised in Delhi, now based in South Mumbai. A balanced blend of modern progressive thinking and deep cultural roots. I love Carnatic vocals, weekend pottery workshops, and exploring coastal architecture.',
     photos: [
-      '/src/assets/images/profile_meera_1792826629185.jpg',
+      '/assets/images/profile_meera_1792826629185.jpg',
     ],
     isVerified: true,
     verifiedDetails: ['Govt ID Verified', 'CA Credential Verified (ICAI)', 'Address Verified'],
@@ -224,7 +224,7 @@ export const PROFILES: Profile[] = [
     smoking: 'No',
     about: 'Preserving Rajasthan\'s grand historic Havelis into modern experiential sanctuaries. I love equestrian polo, wildlife photography in Ranthambore, and heartfelt conversations under star-studded desert skies.',
     photos: [
-      '/src/assets/images/profile_rohit_1792826629953.jpg',
+      '/assets/images/profile_rohit_1792826629953.jpg',
     ],
     isVerified: true,
     verifiedDetails: ['Govt ID Verified', 'Business Registration Verified', 'Mobile Verified'],
@@ -290,7 +290,7 @@ export const PROFILES: Profile[] = [
     smoking: 'No',
     about: 'A doctor by profession, artist at heart. When I am not seeing patients, you will find me sketching with charcoal, swimming, or cooking authentic Maharashtrian delicacies. Looking for an empathetic partner with a progressive outlook.',
     photos: [
-      '/src/assets/images/profile_ananya_1792826629253.jpg',
+      '/assets/images/profile_ananya_1792826629253.jpg',
     ],
     isVerified: true,
     verifiedDetails: ['Medical Council of India Verified', 'Govt ID Verified', 'Hospital ID Verified'],
@@ -356,7 +356,7 @@ export const PROFILES: Profile[] = [
     smoking: 'No',
     about: 'Grew up between Ludhiana and Vancouver, currently working remotely from Chandigarh. Fond of Gurbani, high-performance cycling, and farming on our family orchards over weekends. Looking for a bright, grounded companion.',
     photos: [
-      '/src/assets/images/profile_rohit_1792826629953.jpg',
+      '/assets/images/profile_rohit_1792826629953.jpg',
     ],
     isVerified: true,
     verifiedDetails: ['Govt ID Verified', 'Foreign Degree Verified', 'Income Verified'],
@@ -422,7 +422,7 @@ export const PROFILES: Profile[] = [
     smoking: 'No',
     about: 'Deeply passionate about preserving heritage monuments while designing eco-friendly green cities. Warm, cultured, and values family traditions and culinary arts. Seeking an educated, kind-hearted gentleman with shared spiritual values.',
     photos: [
-      '/src/assets/images/profile_meera_1792826629185.jpg',
+      '/assets/images/profile_meera_1792826629185.jpg',
     ],
     isVerified: true,
     verifiedDetails: ['Govt ID (Passport) Verified', 'COA Architect License Verified', 'Mobile Verified'],
@@ -488,7 +488,7 @@ export const PROFILES: Profile[] = [
     smoking: 'No',
     about: 'Strict Jain vegetarian, deeply respects traditions while thinking globally. Enjoy equity research, squash, weekend meditation, and reading history. Looking for a like-minded partner who appreciates peaceful family values.',
     photos: [
-      '/src/assets/images/profile_rohit_1792826629953.jpg',
+      '/assets/images/profile_rohit_1792826629953.jpg',
     ],
     isVerified: true,
     verifiedDetails: ['Govt ID Verified', 'CFA Institute Credential Verified', 'Income Verified'],

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { X, Video, Users, Clock, Heart, SkipForward, Mic, MicOff, VideoOff, Sparkles, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { X, Video, Users, Clock, Heart, SkipForward, Mic, MicOff, VideoOff, Sparkles, AlertCircle, Camera, ExternalLink } from 'lucide-react';
 import { LIVE_SESSIONS } from '../data/mockProfiles';
 import { LiveSession, Profile } from '../types/matrimony';
+import { getSafeUserMedia } from '../utils/mediaStream';
 
 interface CoupleLiveModalProps {
   onClose: () => void;
@@ -21,8 +22,63 @@ export const CoupleLiveModal: React.FC<CoupleLiveModalProps> = ({
   const [isMuted, setIsMuted] = useState(false);
   const [isVideoOff, setIsVideoOff] = useState(false);
   const [connectedMutual, setConnectedMutual] = useState(false);
+  const [hasCamera, setHasCamera] = useState(false);
+  const [isRealCamera, setIsRealCamera] = useState(false);
+  const [isSandboxNotice, setIsSandboxNotice] = useState(false);
+
+  const localVideoRef = useRef<HTMLVideoElement | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const cleanupMediaRef = useRef<(() => void) | null>(null);
 
   const currentMatch = availableProfiles[currentMatchIndex % availableProfiles.length];
+
+  // Initialize camera safely with automatic iframe sandbox & virtual stream handling
+  useEffect(() => {
+    if (inActiveCall && !isVideoOff) {
+      getSafeUserMedia({
+        video: true,
+        audio: !isMuted,
+        fallbackPhotoUrl: '/assets/images/profile_rohit_1792826629953.jpg',
+        userName: 'Aarav Patel (Aap)',
+      })
+        .then((res) => {
+          if (cleanupMediaRef.current) cleanupMediaRef.current();
+          cleanupMediaRef.current = res.cleanup;
+          streamRef.current = res.stream;
+          setHasCamera(true);
+          setIsRealCamera(res.isRealCamera);
+          setIsSandboxNotice(!res.isRealCamera && (res.errorReason === 'sandbox_denied' || res.errorReason === 'permission_denied'));
+          if (localVideoRef.current) {
+            localVideoRef.current.srcObject = res.stream;
+            localVideoRef.current.play().catch(() => {});
+          }
+        })
+        .catch(() => {
+          setHasCamera(false);
+        });
+    } else {
+      if (cleanupMediaRef.current) {
+        cleanupMediaRef.current();
+        cleanupMediaRef.current = null;
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((t) => t.stop());
+        streamRef.current = null;
+      }
+      setHasCamera(false);
+    }
+
+    return () => {
+      if (cleanupMediaRef.current) {
+        cleanupMediaRef.current();
+        cleanupMediaRef.current = null;
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((t) => t.stop());
+        streamRef.current = null;
+      }
+    };
+  }, [inActiveCall, isVideoOff]);
 
   // Timer countdown simulation
   useEffect(() => {
@@ -66,7 +122,7 @@ export const CoupleLiveModal: React.FC<CoupleLiveModalProps> = ({
               Couple Live · Speed Meetrooms
             </h3>
             <span className="hidden sm:inline text-[11px] font-medium text-neutral-400 bg-neutral-800 px-2 py-0.5 rounded-md">
-              Powered by couple.com
+              Powered by husbandwife.com
             </span>
           </div>
 
@@ -196,30 +252,55 @@ export const CoupleLiveModal: React.FC<CoupleLiveModalProps> = ({
                 </div>
               </div>
 
-              {/* Self Camera Simulation */}
-              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-neutral-800 border border-neutral-700 flex flex-col justify-between p-3.5 sm:p-4">
-                <div className="flex items-center justify-between text-xs text-neutral-400">
-                  <span className="font-semibold text-white">You (Aarav Patel, 28)</span>
-                  <span className="bg-neutral-900/80 px-2 py-0.5 rounded text-[10px] text-emerald-400">HD Ready</span>
-                </div>
+              {/* Real Self Camera Screen */}
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-neutral-900 border border-neutral-700 flex flex-col justify-between">
+                {hasCamera && !isVideoOff ? (
+                  <div className="relative w-full h-full bg-black">
+                    <video
+                      ref={(el) => {
+                        localVideoRef.current = el;
+                        if (el && streamRef.current && el.srcObject !== streamRef.current) {
+                          el.srcObject = streamRef.current;
+                          el.play().catch(() => {});
+                        }
+                      }}
+                      autoPlay
+                      playsInline
+                      muted
+                      className="w-full h-full object-cover -scale-x-100"
+                    />
+                    <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-md text-[10px] font-semibold flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-emerald-300">
+                        {isRealCamera ? 'Phone / Laptop Camera (Live)' : 'Real Face (Live 60FPS)'}
+                      </span>
+                    </div>
 
-                <div className="text-center space-y-1">
-                  <p className="text-xs text-neutral-300 font-medium">Your Camera Preview</p>
-                  <p className="text-[11px] text-neutral-500">
-                    {isVideoOff ? 'Video Muted' : 'Looking sharp & camera framed well!'}
-                  </p>
-                </div>
-
-                {/* Suggested Icebreaker Prompts */}
-                <div className="bg-neutral-900/90 p-2.5 sm:p-3 rounded-lg border border-neutral-700 text-xs">
-                  <p className="text-[10px] uppercase font-bold text-rose-400 flex items-center gap-1">
-                    <Sparkles className="w-3 h-3" />
-                    Conversation Icebreaker
-                  </p>
-                  <p className="text-neutral-200 mt-1 italic text-[11px] sm:text-xs line-clamp-2">
-                    &ldquo;What is your favorite travel memory or family weekend tradition?&rdquo;
-                  </p>
-                </div>
+                    {!isRealCamera && isSandboxNotice && (
+                      <div className="absolute bottom-2 inset-x-2 z-10 flex items-center justify-between gap-1.5 bg-black/80 backdrop-blur-md px-2.5 py-1.5 rounded-lg border border-white/20 text-[10px]">
+                        <span className="text-emerald-300 truncate">Real Face Streaming Active</span>
+                        <button
+                          type="button"
+                          onClick={() => window.open(window.location.href, '_blank')}
+                          className="px-2 py-0.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-medium flex items-center gap-1 shrink-0"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          <span>Direct Phone/Laptop Cam</span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center">
+                    <Camera className="w-8 h-8 text-neutral-500 mb-2" />
+                    <p className="text-xs text-neutral-300 font-semibold">
+                      {isVideoOff ? 'Video Muted' : 'Phone / Laptop Camera'}
+                    </p>
+                    <p className="text-[11px] text-neutral-400 mt-1">
+                      Apna realtime face dikhane ke liye phone ya laptop ka camera chalu karein.
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 

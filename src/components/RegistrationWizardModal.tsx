@@ -115,7 +115,7 @@ export const RegistrationWizardModal: React.FC<RegistrationWizardModalProps> = (
               <span>Step {step} of 4 · Free Profile</span>
             </div>
             <h3 className="text-base sm:text-lg font-bold text-neutral-900 font-serif">
-              Join couple.com
+              Join husbandwife.com
             </h3>
           </div>
           <button
@@ -393,16 +393,36 @@ export const RegistrationWizardModal: React.FC<RegistrationWizardModalProps> = (
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                  About You & Partner Expectations (Bio)
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-semibold text-neutral-700">
+                    Apna Bio Likhein (About You & Partner Expectations) *
+                  </label>
+                  <span className="text-[10px] text-neutral-400 font-mono">{about.length} chars</span>
+                </div>
                 <textarea
                   rows={3}
-                  placeholder="Write a brief overview about your personality, passions, and the kind of life partner you are hoping to meet..."
+                  required
+                  placeholder="Apne baare me, apni hobbies, family values, aur aap kaisa jeevansathi chahte hain yaha detail me likhein..."
                   value={about}
                   onChange={(e) => setAbout(e.target.value)}
                   className="w-full text-xs p-3 bg-white border border-neutral-300 rounded-lg text-neutral-900 focus:outline-none focus:ring-2 focus:ring-rose-500"
                 />
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setAbout('A balanced blend of modern progressive thinking and deep cultural roots. Enjoy quiet evenings with music, reading, and family dinners. Looking for a kind-hearted, educated partner.')}
+                    className="text-[10px] px-2 py-1 bg-neutral-100 hover:bg-rose-50 hover:text-rose-700 text-neutral-600 rounded-md border border-neutral-200 transition-colors"
+                  >
+                    💡 Modern & Traditional
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAbout('Ambitious tech professional balancing high-growth career with family priorities. Passionate about fitness, traveling, and good conversations. Seeking an equally driven life companion.')}
+                    className="text-[10px] px-2 py-1 bg-neutral-100 hover:bg-rose-50 hover:text-rose-700 text-neutral-600 rounded-md border border-neutral-200 transition-colors"
+                  >
+                    💡 Career & Family Focused
+                  </button>
+                </div>
               </div>
 
               <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 flex items-center gap-2 text-xs text-emerald-900">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Heart, ShieldCheck, Sparkles, Send, MessageSquare, Phone, Lock, CheckCircle2, ChevronRight, Share2 } from 'lucide-react';
+import { X, Heart, ShieldCheck, Sparkles, Send, MessageSquare, Phone, Video, Lock, CheckCircle2, ChevronRight, Share2, MessageCircle } from 'lucide-react';
 import { Profile } from '../types/matrimony';
 
 interface ProfileDetailModalProps {
@@ -12,6 +12,7 @@ interface ProfileDetailModalProps {
   isShortlisted: boolean;
   connectionStatus?: 'pending' | 'accepted' | 'declined';
   hasPremium: boolean;
+  onStartCall?: (profile: Profile, type: 'audio' | 'video') => void;
 }
 
 export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
@@ -24,6 +25,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
   isShortlisted,
   connectionStatus,
   hasPremium,
+  onStartCall,
 }) => {
   const [activeTab, setActiveTab] = useState<'biodata' | 'kundli' | 'family' | 'expectations'>('biodata');
   const [showContact, setShowContact] = useState(false);
@@ -80,6 +82,11 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
                 src={profile.photos[0]}
                 alt={profile.name}
                 referrerPolicy="no-referrer"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = profile.gender === 'female'
+                    ? 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80'
+                    : 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80';
+                }}
                 className="w-full h-full object-cover object-top"
               />
             </div>
@@ -448,7 +455,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
                 <p className="text-xs text-neutral-300">
                   {showContact
                     ? '+91 98112-XXXXX (Verified Mobile & Parent Contact)'
-                    : 'Contact number is protected by couple.com privacy shield.'}
+                    : 'Contact number is protected by husbandwife.com privacy shield.'}
                 </p>
               </div>
 
@@ -492,26 +499,60 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
             <span className="sm:hidden">{isShortlisted ? 'Saved' : 'Save'}</span>
           </button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {onStartCall && (
+              <>
+                <button
+                  onClick={() => {
+                    onClose();
+                    onStartCall(profile, 'audio');
+                  }}
+                  title="Voice Call with Profile"
+                  className="min-h-[44px] px-2.5 sm:px-3.5 py-2 bg-white hover:bg-neutral-100 text-neutral-800 border border-neutral-300 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+                >
+                  <Phone className="w-4 h-4 text-emerald-600" />
+                  <span className="hidden sm:inline">Voice Call</span>
+                </button>
+                <button
+                  onClick={() => {
+                    onClose();
+                    onStartCall(profile, 'video');
+                  }}
+                  title="Video Call with Profile"
+                  className="min-h-[44px] px-2.5 sm:px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+                >
+                  <Video className="w-4 h-4 text-rose-600" />
+                  <span className="hidden sm:inline">Video Call</span>
+                </button>
+              </>
+            )}
+
+            {/* Direct WhatsApp Chat for any boy or girl */}
+            <button
+              onClick={() => {
+                onClose();
+                onOpenChat(profile);
+              }}
+              className="min-h-[44px] px-3.5 sm:px-4 py-2 bg-[#008069] hover:bg-[#075E54] text-white text-xs font-semibold rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+              title="Chat on WhatsApp"
+            >
+              <MessageCircle className="w-4 h-4 text-[#25D366]" />
+              <span>WhatsApp Chat</span>
+            </button>
+
             {connectionStatus === 'accepted' ? (
-              <button
-                onClick={() => {
-                  onClose();
-                  onOpenChat(profile);
-                }}
-                className="min-h-[44px] px-4 sm:px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm"
-              >
-                <MessageSquare className="w-4 h-4" />
-                <span>Open Chat</span>
-              </button>
+              <span className="min-h-[44px] px-3.5 py-2 bg-emerald-100 text-emerald-800 text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5 border border-emerald-300">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span>Connected</span>
+              </span>
             ) : connectionStatus === 'pending' ? (
-              <span className="min-h-[44px] px-4 sm:px-5 py-2 bg-neutral-200 text-neutral-700 text-xs font-semibold rounded-xl flex items-center justify-center">
+              <span className="min-h-[44px] px-3 sm:px-4 py-2 bg-neutral-200 text-neutral-700 text-xs font-semibold rounded-xl flex items-center justify-center">
                 Interest Sent
               </span>
             ) : (
               <button
                 onClick={() => onConnect(profile)}
-                className="min-h-[44px] px-4 sm:px-6 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2"
+                className="min-h-[44px] px-3.5 sm:px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2"
               >
                 <Send className="w-4 h-4" />
                 <span>Send Connect</span>

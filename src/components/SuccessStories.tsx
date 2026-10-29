@@ -16,7 +16,7 @@ export const SuccessStories: React.FC = () => {
             Over 720,000+ Happy Marriages Celebrated
           </h2>
           <p className="text-xs sm:text-sm text-neutral-500 mt-1.5 sm:mt-2">
-            Read heartwarming journeys of couples who found their soulmate through couple.com&apos;s verified matchmaking.
+            Read heartwarming journeys of couples who found their soulmate through husbandwife.com&apos;s verified matchmaking.
           </p>
         </div>
 
@@ -68,7 +68,7 @@ export const SuccessStories: React.FC = () => {
                 <div className="flex items-center justify-between text-xs text-rose-700 font-medium pt-3">
                   <span className="flex items-center gap-1.5">
                     <Heart className="w-4 h-4 fill-current text-rose-500" />
-                    <span>Verified couple.com Match</span>
+                    <span>Verified husbandwife.com Match</span>
                   </span>
                   <span className="text-neutral-400">Ceremony Confirmed</span>
                 </div>

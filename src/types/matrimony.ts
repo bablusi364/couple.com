@@ -69,10 +69,12 @@ export interface Profile {
   expectations: PartnerExpectations;
   interests: string[];
   isPremium?: boolean;
+  isUserCreated?: boolean;
+  isMyProfile?: boolean;
 }
 
 export interface FilterState {
-  lookingFor: Gender;
+  lookingFor: Gender | 'all';
   minAge: number;
   maxAge: number;
   religion: string;
@@ -87,12 +89,33 @@ export interface FilterState {
   activeTab: 'all' | 'recommended' | 'nearMe' | 'verified' | 'astro';
 }
 
+export type CallType = 'audio' | 'video';
+export type CallState = 'outgoing' | 'incoming' | 'connected' | 'ended';
+
+export interface ActiveCall {
+  partner: Profile;
+  type: CallType;
+  state: CallState;
+  isIncoming?: boolean;
+  roomId?: string;
+  isRealCall?: boolean;
+}
+
 export interface ChatMessage {
   id: string;
   senderId: string;
   text: string;
   timestamp: string;
   isSelf: boolean;
+  status?: 'sending' | 'sent' | 'delivered' | 'read';
+  mediaUrl?: string;
+  mediaType?: 'image' | 'audio';
+  audioDuration?: string;
+  caption?: string;
+  callInfo?: {
+    type: CallType;
+    duration: string;
+  };
 }
 
 export interface Connection {

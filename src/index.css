@@ -25,3 +25,104 @@ html, body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+@keyframes cameraSway {
+  0%, 100% {
+    transform: scale(1.04) translate(0px, 0px);
+  }
+  33% {
+    transform: scale(1.06) translate(-2px, 3px);
+  }
+  66% {
+    transform: scale(1.05) translate(3px, -2px);
+  }
+}
+
+.animate-cameraSway {
+  animation: cameraSway 8s ease-in-out infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0px) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-240px) scale(1.4);
+    opacity: 0;
+  }
+}
+
+.animate-floatUp {
+  animation: floatUp 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes faceBreath {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.025);
+  }
+}
+
+.animate-faceBreath {
+  animation: faceBreath 3.5s ease-in-out infinite;
+}
+
+@keyframes soundWave {
+  0%, 100% {
+    height: 6px;
+  }
+  50% {
+    height: 22px;
+  }
+}
+
+.animate-soundWave {
+  animation: soundWave 0.8s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translate(-50%, -24px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* 60fps Scrolling & Paint Containment Optimizations */
+.profile-card-optimized {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 460px;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Hardware-accelerated modal backdrop and viewport */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+

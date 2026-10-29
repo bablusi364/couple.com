@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { SlidersHorizontal, RotateCcw, ShieldCheck, Sparkles, MapPin, Search } from 'lucide-react';
 import { FilterState, Profile } from '../types/matrimony';
 import { ProfileCard } from './ProfileCard';
@@ -15,6 +15,9 @@ interface MatchFeedProps {
   connections: Record<string, { status: 'pending' | 'accepted' | 'declined' }>;
   viewTitle?: string;
   isShortlistOnly?: boolean;
+  onStartCall?: (profile: Profile, type: 'audio' | 'video') => void;
+  onOpenEditProfile?: () => void;
+  onOpenOneToOne?: (profile: Profile) => void;
 }
 
 export const MatchFeed: React.FC<MatchFeedProps> = ({
@@ -29,19 +32,23 @@ export const MatchFeed: React.FC<MatchFeedProps> = ({
   connections,
   viewTitle = 'Verified Matches for You',
   isShortlistOnly = false,
+  onStartCall,
+  onOpenEditProfile,
+  onOpenOneToOne,
 }) => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Filtering logic
-  const filteredProfiles = profiles.filter((p) => {
+  // Memoized filtering logic for instantaneous 60fps search and filter transitions
+  const filteredProfiles = useMemo(() => {
+    return profiles.filter((p) => {
     // If shortlist view
     if (isShortlistOnly && !shortlistedIds.includes(p.id)) {
       return false;
     }
 
     // Looking for gender
-    if (p.gender !== filters.lookingFor) {
+    if (filters.lookingFor !== 'all' && p.gender !== filters.lookingFor) {
       return false;
     }
 
@@ -104,7 +111,8 @@ export const MatchFeed: React.FC<MatchFeedProps> = ({
     }
 
     return true;
-  });
+    });
+  }, [profiles, filters, isShortlistOnly, shortlistedIds, searchQuery]);
 
   const resetFilters = () => {
     setFilters({
@@ -151,7 +159,7 @@ export const MatchFeed: React.FC<MatchFeedProps> = ({
                   : 'text-neutral-600 hover:text-neutral-900'
               }`}
             >
-              Brides (Women)
+              Brides (दुल्हन)
             </button>
             <button
               onClick={() => setFilters((prev) => ({ ...prev, lookingFor: 'male' }))}
@@ -161,7 +169,17 @@ export const MatchFeed: React.FC<MatchFeedProps> = ({
                   : 'text-neutral-600 hover:text-neutral-900'
               }`}
             >
-              Grooms (Men)
+              Grooms (दूल्हा)
+            </button>
+            <button
+              onClick={() => setFilters((prev) => ({ ...prev, lookingFor: 'all' }))}
+              className={`min-h-[38px] px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap shrink-0 ${
+                filters.lookingFor === 'all'
+                  ? 'bg-white text-neutral-900 shadow-sm font-semibold'
+                  : 'text-neutral-600 hover:text-neutral-900'
+              }`}
+            >
+              All (सभी)
             </button>
           </div>
         </div>
@@ -371,6 +389,9 @@ export const MatchFeed: React.FC<MatchFeedProps> = ({
                 onOpenChat={onOpenChat}
                 isShortlisted={shortlistedIds.includes(profile.id)}
                 connectionStatus={connections[profile.id]?.status}
+                onStartCall={onStartCall}
+                onOpenEditProfile={onOpenEditProfile}
+                onOpenOneToOne={onOpenOneToOne}
               />
             ))}
           </div>
